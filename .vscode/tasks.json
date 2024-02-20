@@ -1,0 +1,19 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Convert UI to Python",
+            "type": "shell",
+            "command": "E:\\app\\anaconda3\\envs\\GPT-Paper\\Scripts\\pyside6-uic.exe",
+            "args": ["${file}", "-o", "${relativeFileDirname}\\${fileBasenameNoExtension}.py"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }
+    ]
+}

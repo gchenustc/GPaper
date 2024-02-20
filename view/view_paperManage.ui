@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1172</width>
+    <height>805</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>GPaper</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTreeView" name="treeNevigation">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>151</width>
+      <height>781</height>
+     </rect>
+    </property>
+    <property name="sortingEnabled">
+     <bool>true</bool>
+    </property>
+    <property name="animated">
+     <bool>true</bool>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1172</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuGPT">
+    <property name="title">
+     <string>GPT</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuDATABASE">
+    <property name="title">
+     <string>DATABASE</string>
+    </property>
+    <widget class="QMenu" name="menupaper_type">
+     <property name="title">
+      <string>paper type</string>
+     </property>
+     <addaction name="add_paper_type"/>
+     <addaction name="paper_type_information_manage"/>
+    </widget>
+    <widget class="QMenu" name="menupaper">
+     <property name="title">
+      <string>paper</string>
+     </property>
+     <addaction name="create_new_paper"/>
+     <addaction name="import_paper"/>
+     <addaction name="import_paper_pdf_folder"/>
+     <addaction name="separator"/>
+     <addaction name="paper_information_manage"/>
+    </widget>
+    <addaction name="menupaper_type"/>
+    <addaction name="menupaper"/>
+   </widget>
+   <widget class="QMenu" name="menuSETTING">
+    <property name="title">
+     <string>SETTING</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../images/Setting.png</normaloff>../images/Setting.png</iconset>
+    </property>
+    <property name="separatorsCollapsible">
+     <bool>false</bool>
+    </property>
+    <property name="toolTipsVisible">
+     <bool>true</bool>
+    </property>
+    <addaction name="GPT_SETTING"/>
+   </widget>
+   <addaction name="menuGPT"/>
+   <addaction name="menuDATABASE"/>
+   <addaction name="menuSETTING"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="GPT_SETTING">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/Setting1.png</normaloff>../images/Setting1.png</iconset>
+   </property>
+   <property name="text">
+    <string>GPT SETTING</string>
+   </property>
+  </action>
+  <action name="add_paper_type">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/add.png</normaloff>../images/add.png</iconset>
+   </property>
+   <property name="text">
+    <string>add paper type</string>
+   </property>
+  </action>
+  <action name="paper_type_information_manage">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/manage.png</normaloff>../images/manage.png</iconset>
+   </property>
+   <property name="text">
+    <string>paper type information manage</string>
+   </property>
+  </action>
+  <action name="create_new_paper">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/add.png</normaloff>../images/add.png</iconset>
+   </property>
+   <property name="text">
+    <string>create new paper</string>
+   </property>
+  </action>
+  <action name="import_paper">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/pdf.png</normaloff>../images/pdf.png</iconset>
+   </property>
+   <property name="text">
+    <string>import paper pdf</string>
+   </property>
+  </action>
+  <action name="import_paper_pdf_folder">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/folder.png</normaloff>../images/folder.png</iconset>
+   </property>
+   <property name="text">
+    <string>import paper pdf folder</string>
+   </property>
+  </action>
+  <action name="paper_information_manage">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/manage.png</normaloff>../images/manage.png</iconset>
+   </property>
+   <property name="text">
+    <string>paper information manage</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
