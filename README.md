@@ -18,3 +18,7 @@ Note that, This part hasn't started yet. But the future plan is following:
 
 ## 2. Project Structure
 ...
+
+## 3. Usage
+1. pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+2. Run main.py directly
