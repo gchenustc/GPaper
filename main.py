@@ -1,4 +1,3 @@
-import os
 from PySide6 import QtCore
 from PySide6.QtCore import (QCoreApplication, QMetaObject, QRect, QSize)
 from PySide6.QtGui import (QAction, QIcon)
