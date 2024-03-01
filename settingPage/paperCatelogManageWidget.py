@@ -41,12 +41,12 @@ class PaperCatelogManageWidget(QWidget):
 
         self.searchInput = QLineEdit(self.searchGroup)
         self.searchInput.setObjectName(
-            u"paperTypeLineEditSearch")
+            u"paperCatelogLineEditSearch")
         self.searchInput.setGeometry(QRect(260, 20, 201, 31))
 
         self.searchLabel = QLabel(self.searchGroup)
         self.searchLabel.setObjectName(
-            u"paperTypeNameLabelSearch")
+            u"paperCatelogNameLabelSearch")
         self.searchLabel.setGeometry(QRect(125, 20, 100, 31))
         self.searchLabel.setFont(font)
 
@@ -58,7 +58,6 @@ class PaperCatelogManageWidget(QWidget):
         icon.addFile(u"../images/search.png", QSize(), QIcon.Normal, QIcon.Off)
         self.searchBtn.setIcon(icon)
 
-
         # ? information group
         self.informationGroup = QGroupBox(self)
         self.informationGroup.setObjectName(u"jnformationGroup")
@@ -68,17 +67,17 @@ class PaperCatelogManageWidget(QWidget):
 
         self.sortedIdInput = QLineEdit(self.informationGroup)
         self.sortedIdInput.setObjectName(
-            u"paperTypeIdLineEditInfo")
+            u"paperCatelogIdLineEditInfo")
         self.sortedIdInput.setGeometry(QRect(120, 20, 101, 31))
         self.sortedIdInput.setReadOnly(True)
         self.sortedIdInput.setStyleSheet(u"background-color: grey")
 
         self.nameInput = QLineEdit(self.informationGroup)
-        self.nameInput.setObjectName(u"paperTypeNameLineEdit")
+        self.nameInput.setObjectName(u"paperCatelogNameLineEdit")
         self.nameInput.setGeometry(QRect(460, 20, 231, 31))
 
         self.DescInput = QTextEdit(self.informationGroup)
-        self.DescInput.setObjectName(u"paperTypeDescTextEdit")
+        self.DescInput.setObjectName(u"paperCatelogDescTextEdit")
         self.DescInput.setGeometry(QRect(120, 60, 571, 91))
 
         self.sortedIdLabel = QLabel(self.informationGroup)
@@ -87,7 +86,7 @@ class PaperCatelogManageWidget(QWidget):
         self.sortedIdLabel.setFont(font)
 
         self.nameLabel = QLabel(self.informationGroup)
-        self.nameLabel.setObjectName(u"paperTypeNameLabelInfo")
+        self.nameLabel.setObjectName(u"paperCatelogNameLabelInfo")
         self.nameLabel.setGeometry(QRect(330, 20, 91, 31))
         self.nameLabel.setFont(font)
 
@@ -107,7 +106,7 @@ class PaperCatelogManageWidget(QWidget):
 
         # add button
         self.addBtn = QPushButton(self.horizontalLayoutWidget)
-        self.addBtn.setObjectName(u"paperTypeAddLabel")
+        self.addBtn.setObjectName(u"paperCatelogAddLabel")
         self.addBtn.setFont(font)
         icon = QIcon()
         icon.addFile(u"./images/add.png",
@@ -118,10 +117,10 @@ class PaperCatelogManageWidget(QWidget):
 
         # delete button
         self.deleteBtn = QPushButton(self.horizontalLayoutWidget)
-        self.deleteBtn.setObjectName(u"paperTypeDeleteLabel")
+        self.deleteBtn.setObjectName(u"paperCatelogDeleteLabel")
         self.deleteBtn.setFont(font)
         icon1 = QIcon()
-        icon1.addFile(u"./images/modify.png",
+        icon1.addFile(u"./images/delete.png",
                       QSize(), QIcon.Normal, QIcon.Off)
         self.deleteBtn.setIcon(icon1)
 
@@ -129,10 +128,10 @@ class PaperCatelogManageWidget(QWidget):
 
         # modify button
         self.modifyBtn = QPushButton(self.horizontalLayoutWidget)
-        self.modifyBtn.setObjectName(u"paperTypeModifyLabel")
+        self.modifyBtn.setObjectName(u"paperCatelogModifyLabel")
         self.modifyBtn.setFont(font)
         icon2 = QIcon()
-        icon2.addFile(u"./images/delete.png",
+        icon2.addFile(u"./images/modify.png",
                       QSize(), QIcon.Normal, QIcon.Off)
         self.modifyBtn.setIcon(icon2)
 
@@ -140,7 +139,7 @@ class PaperCatelogManageWidget(QWidget):
 
         # ? information table
         self.catelogTable = QTableWidget(self)
-        self.catelogTable.setObjectName(u"paperTypeTable")
+        self.catelogTable.setObjectName(u"paperCatelogTable")
         self.catelogTable.setGeometry(QRect(135, 110, 721, 411))
         self.catelogTable.setShowGrid(False)   # hide grid
         self.catelogTable.setStyleSheet(

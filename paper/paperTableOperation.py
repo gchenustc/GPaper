@@ -113,7 +113,6 @@ def initPaperTable(paperTable: QTableWidget, paperCatelogCbx: QComboBox, fuzzyIn
         paperCatelogId, fuzzyInfo, True)
     if not papers:
         clearPaperTable(paperTable)
-        print(1)
         return
 
     row = len(papers)
@@ -238,7 +237,7 @@ def getRowItem(paperTable: QTableWidget, rowList: list[int]) -> list[list]:
 
 def paperTableCellChanged(paperTable: QTableWidget, row, col):
 
-    if col == 0 or col == 6:
+    if col in [0, 6]:
         return
 
     headerLabel = paperTable.horizontalHeaderItem(col).text()

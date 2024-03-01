@@ -89,26 +89,9 @@ class ApiWidget(QWidget):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
 
-        # platform label
-        self.platformLabel = QLabel(self.verticalLayoutWidget)
-        self.platformLabel.setObjectName(u"platformLabel")
-        self.platformLabel.setFont(font)
-
-        self.verticalLayout.addWidget(self.platformLabel)
-
-        # key label
-        self.keyLabel = QLabel(self.verticalLayoutWidget)
-        self.keyLabel.setObjectName(u"keyLabel")
-        self.keyLabel.setFont(font)
-
-        self.verticalLayout.addWidget(self.keyLabel)
-
-        # host label
-        self.hostLabel = QLabel(self.verticalLayoutWidget)
-        self.hostLabel.setObjectName(u"hostLabel")
-        self.hostLabel.setFont(font)
-
-        self.verticalLayout.addWidget(self.hostLabel)
+        self.platformLabel = self.createQLabel(u"platformLabel", font)
+        self.keyLabel = self.createQLabel(u"keyLabel", font)
+        self.hostLabel = self.createQLabel(u"hostLabel", font)
 
         font = QFont()
         font.setPointSize(16)
@@ -156,6 +139,16 @@ class ApiWidget(QWidget):
         self.retranslateUi()
 
         QMetaObject.connectSlotsByName(self)
+
+    def createQLabel(self, objectName, font):
+        # platform label
+        result = QLabel(self.verticalLayoutWidget)
+        result.setObjectName(objectName)
+        result.setFont(font)
+
+        self.verticalLayout.addWidget(result)
+
+        return result
 
     def retranslateUi(self):
         self.platformLabel.setText(

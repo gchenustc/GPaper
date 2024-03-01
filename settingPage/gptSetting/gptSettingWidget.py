@@ -59,7 +59,6 @@ class GptSettingWidget(QWidget):
         self.stack.addWidget(self.prompt)
         # self.stack.setCurrentIndex(0)
 
-        # TODO
         self.stack.setCurrentWidget(self.api)
 
     def setupUi(self):

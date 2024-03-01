@@ -30,20 +30,8 @@ class PromptWidget(QWidget):
         font = QFont()
         font.setPointSize(20)
 
-        # image
-        qianwenPixmap = QPixmap("images/qianwen.png")
-        qianwenScaledPixmap = qianwenPixmap.scaled(
-            100, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation)
-        qianWenLabel = QLabel(self)
-        qianWenLabel.setPixmap(qianwenScaledPixmap)
-        qianWenLabel.setGeometry(360, 45, 100, 100)
-
-        openaiPixmap = QPixmap("images/openai.png")
-        openaiScalePixmap = openaiPixmap.scaled(
-            300, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation)
-        openaiLabel = QLabel(self)
-        openaiLabel.setPixmap(openaiScalePixmap)
-        openaiLabel.setGeometry(550, 45, 300, 100)
+        self.createPixmap("images/qianwen.png", 100, 360)
+        self.createPixmap("images/openai.png", 300, 550)
 
         self.verticalLayoutWidget = QWidget(self)
         self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget_2")
@@ -66,6 +54,9 @@ class PromptWidget(QWidget):
 
         self.verticalLayout.addWidget(self.textLabel)
 
+        font = QFont()
+        font.setPointSize(16)
+
         # input
         self.verticalLayoutWidget_2 = QWidget(self)
         self.verticalLayoutWidget_2.setObjectName(u"verticalLayoutWidget_2")
@@ -80,13 +71,16 @@ class PromptWidget(QWidget):
         self.nameCbx.setObjectName(u"comboBox")
         self.nameCbx.setEditable(True)
         self.nameCbx.setFixedHeight(40)
+        self.nameCbx.setFont(font)
 
         self.verticalLayout_2.addWidget(self.nameCbx)
 
-        self.textEdit = QTextEdit(self.verticalLayoutWidget_2)
-        self.textEdit.setObjectName(u"textEdit")
+        # text input
+        self.textInput = QTextEdit(self.verticalLayoutWidget_2)
+        self.textInput.setObjectName(u"textEdit")
+        self.textInput.setFont(font)
 
-        self.verticalLayout_2.addWidget(self.textEdit)
+        self.verticalLayout_2.addWidget(self.textInput)
 
         self.horizontalLayoutWidget = QWidget(self)
         self.horizontalLayoutWidget.setObjectName(u"horizontalLayoutWidget")
@@ -96,34 +90,41 @@ class PromptWidget(QWidget):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(20, 0, 20, 0)
 
-        # save new button
-        self.saveNewBtn = QPushButton(self.horizontalLayoutWidget)
-        self.saveNewBtn.setObjectName(u"saveNewBtn")
-        self.saveNewBtn.setStyleSheet(
-            "color: white; background-color: rgb(46, 139, 87); border-radius: 5px; font-weight: bold;")
-        self.saveNewBtn.setFixedHeight(35)
-
-        self.horizontalLayout.addWidget(self.saveNewBtn)
-
-        # delete button
-        self.deleteBtn = QPushButton(self.horizontalLayoutWidget)
-        self.deleteBtn.setObjectName(u"deleteBtn")
-        self.deleteBtn.setStyleSheet(
-            "color: white; background-color: rgb(255, 100, 70); border-radius: 5px; font-weight: bold;")
-        self.deleteBtn.setFixedHeight(35)
-
-        self.horizontalLayout.addWidget(self.deleteBtn)
-
-        # modify button
-        self.modifyBtn = QPushButton(self.horizontalLayoutWidget)
-        self.modifyBtn.setObjectName(u"modifyBtn")
-        self.modifyBtn.setStyleSheet(
-            "color: white; background-color: rgb(65, 105, 225); border-radius: 5px; font-weight: bold;")
-        self.modifyBtn.setFixedHeight(35)
-
-        self.horizontalLayout.addWidget(self.modifyBtn)
-
+        self.saveNewBtn = self._extracted_from_setupUi_78(
+            u"saveNewBtn",
+            "color: white; background-color: rgb(46, 139, 87); border-radius: 5px; font-weight: bold;",
+        )
+        self.deleteBtn = self._extracted_from_setupUi_78(
+            u"deleteBtn",
+            "color: white; background-color: rgb(255, 100, 70); border-radius: 5px; font-weight: bold;",
+        )
+        self.modifyBtn = self._extracted_from_setupUi_78(
+            u"modifyBtn",
+            "color: white; background-color: rgb(65, 105, 225); border-radius: 5px; font-weight: bold;",
+        )
         self.retranslateUi()
+
+    def createPixmap(self, arg0, arg1, arg2):
+        # image
+        qianwenPixmap = QPixmap(arg0)
+        qianwenScaledPixmap = qianwenPixmap.scaled(
+            arg1, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation
+        )
+        qianWenLabel = QLabel(self)
+        qianWenLabel.setPixmap(qianwenScaledPixmap)
+        qianWenLabel.setGeometry(arg2, 45, arg1, 100)
+
+    # TODO Rename this here and in `setupUi`
+    def _extracted_from_setupUi_78(self, arg0, arg1):
+        # save new button
+        result = QPushButton(self.horizontalLayoutWidget)
+        result.setObjectName(arg0)
+        result.setStyleSheet(arg1)
+        result.setFixedHeight(35)
+
+        self.horizontalLayout.addWidget(result)
+
+        return result
 
     def retranslateUi(self):
         self.nameLabel.setText(
@@ -147,7 +148,7 @@ class PromptWidget(QWidget):
         promptId = promptDao.getPromptFromSelected(selected=1)[0].id
         
         prompt = promptDao.getPromptFromId(promptId)[0]
-        self.textEdit.setText(prompt.text)
+        self.textInput.setText(prompt.text)
         
         return True
         
@@ -196,7 +197,7 @@ class PromptWidget(QWidget):
 
     def saveNewBtnClicked(self):
         name = self.nameCbx.currentText().strip()
-        text = self.textEdit.toPlainText().strip()
+        text = self.textInput.toPlainText().strip()
         
         if not name.strip():
             QMessageBox.warning(None, "warning", "Name is null")
@@ -218,7 +219,7 @@ class PromptWidget(QWidget):
         promptId = self.nameCbx.currentData(Qt.UserRole)
         prompt: Prompt = promptDao.getPromptFromId(promptId)[0]
         prompt.name = self.nameCbx.currentText().strip()
-        prompt.text = self.textEdit.toPlainText().strip()
+        prompt.text = self.textInput.toPlainText().strip()
         
         if not promptDao.modifyPromptFromId(prompt, True):
             QMessageBox.critical(None, "Error", "Failed to modify the prompt")
