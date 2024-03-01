@@ -16,7 +16,7 @@ class ChatWidget(ChatWidgetFrame):
         self.widgetlist = []  # 记录气泡
         self.text = ""                                              # 存储信息
         self.icon = QtGui.QPixmap(
-            "images/book.png")                          # 头像
+            "images/pdf.png")                          # 头像
         # 设置聊天窗口样式 隐藏滚动条
         self.leftScrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.leftScrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
@@ -62,19 +62,19 @@ class ChatWidget(ChatWidgetFrame):
 
     def reviseBubbleLenth(self):
         font = QFont()
-        font.setPointSize(16)
+        font.setPointSize(12)
         font.setFamily("微软雅黑")
         fm = QFontMetrics(font)
-        textWidth = fm.boundingRect(self.text).width() + 110
-        print(textWidth)
+        textWidth = fm.boundingRect(self.text).width() + 83
+
         if self.sum != 0:
             if textWidth > 832:  # 宽度上限
                 textWidth = int(
-                    self.textBrowser.document().size().width())+100  # 固定宽度
+                    self.textBrowser.document().size().width())+83  # 固定宽度
             self.messageWidget.setMinimumSize(textWidth, int(
-                self.textBrowser.document().size().height()) + 40)  # 规定气泡大小
+                self.textBrowser.document().size().height()) + 25)  # 规定气泡大小
             self.messageWidget.setMaximumSize(textWidth, int(
-                self.textBrowser.document().size().height()) + 40)  # 规定气泡大小
+                self.textBrowser.document().size().height()) + 25)  # 规定气泡大小
             self.leftScrollArea.verticalScrollBar().setValue(10)
 
     # 窗口滚动到最底部
@@ -89,24 +89,27 @@ class ChatWidget(ChatWidgetFrame):
 
         self.messageWidget = QtWidgets.QWidget(self.scrollAreaWidgetContents)
         self.messageWidget.setLayoutDirection(dir)
+        self.messageWidget.setStyleSheet("""border: 0px;""")
 
         self.messageHorizontalLayout = QtWidgets.QHBoxLayout(
             self.messageWidget)
 
         self.headLabel = QtWidgets.QLabel(self.messageWidget)
-        self.headLabel.setMaximumSize(QtCore.QSize(50, 50))
+        self.headLabel.setMaximumSize(QtCore.QSize(40, 40))
         self.headLabel.setText("")
         self.headLabel.setPixmap(ico)
         self.headLabel.setScaledContents(True)
+        self.headLabel.setStyleSheet("""border:0px solid #34495e;""")
 
         self.messageHorizontalLayout.addWidget(self.headLabel)
 
         self.textBrowser = QtWidgets.QTextBrowser(self.messageWidget)
         self.textBrowser.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.textBrowser.setStyleSheet("""
-                                        padding:5px;
-                                        background-color: rgba(71,121,214,20);
-                                        font: 16pt '微软雅黑';
+                                        padding:2px;
+                                        background-color: rgba(71,121,214,40);
+                                        border-radius: 10px;
+                                        font: 12pt '微软雅黑';
                                        """)
         self.textBrowser.setText(text)
         self.textBrowser.setMinimumSize(QtCore.QSize(0, 0))
