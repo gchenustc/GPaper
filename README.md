@@ -8,7 +8,7 @@ The project aims to connect the scientific literature database to GPT, and the p
 1. Import PDF files and extract the text and DOI from the PDF files.
 2. Support the extraction of source information from the literature DOI (including author, abstract, journal, publication date, etc.)
 3. If the PDF can not extract the DOI, you can fill in manually, and then you can extraction the source information.
-![paperWidgetDemo](./images/paperWidgetDemo.png "paperWidgetDemo")
+![paperWidgetDemo](./images/paperWidgetShow.png "paperWidgetShow")
 
 ### GPT connection
 Note that, This part hasn't started yet. But the future plan is following:
@@ -29,4 +29,8 @@ Note that, This part hasn't started yet. But the future plan is following:
 20240301: 
 1. Completed part of the chat interface framework
 2. Some bugs have been fixed
-![chatWidgetDemo](./images/chatWidgetDemo.png "chatWidgetDemo")
+![chatWidgetDemo](./images/chatWidgetUpdate1.png "chatWidgetUpdate1")
+
+20240303:
+1. Completed the chat interface framework
+![chatWidgetDemo](./images/chatWidgetUpdate2.png "chatWidgetUpdate2")
