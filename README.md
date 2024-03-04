@@ -36,4 +36,5 @@ Note that, This part hasn't started yet. But the future plan is following:
 ![chatWidgetDemo](./images/chatWidgetUpdate2.png "chatWidgetUpdate2")
 
 20240304:
-1. Update the history ex
+1. Update the history chats' code logic and interface exhibition
+![chatWidgetDemo](./images/chatWidgetUpdate3.png "chatWidgetUpdate3")

@@ -370,7 +370,7 @@ class ChatWidgetFrame(QtWidgets.QWidget):
         # TODO demo
         from chat.widgetRewite import MyLabel
         for _ in range(200):
-            label = MyLabel("这是可滚动的内容之一一一一一一一一一一",
+            label = MyLabel("history item",
                             self.histContentWidget)
             label.setFixedWidth(180)
             label.setWordWrap(True)
