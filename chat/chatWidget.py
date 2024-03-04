@@ -42,12 +42,12 @@ class ChatWidget(ChatWidgetFrame):
         self.sum += 1
         if self.sum % 2:   # 根据判断创建左右气泡
             # 调用new_widget.py中方法生成左气泡
-            self.setChatReturn(
+            self.addChatContents(
                 self.icon, self.text, QtCore.Qt.LeftToRight)
             QApplication.processEvents()                                # 等待并处理主循环事件队列
         else:
             # 调用new_widget.py中方法生成右气泡
-            self.setChatReturn(
+            self.addChatContents(
                 self.icon, self.text, QtCore.Qt.RightToLeft)
             QApplication.processEvents()                                # 等待并处理主循环事件队列
 
@@ -82,7 +82,7 @@ class ChatWidget(ChatWidgetFrame):
         scrollbar = self.leftScrollArea.verticalScrollBar()
         scrollbar.setValue(scrollbar.maximum())
 
-    def setChatReturn(self, ico, text, dir):  # head portrait, text, direction
+    def addChatContents(self, ico, text, dir):  # head portrait, text, direction
 
         if not text:
             return

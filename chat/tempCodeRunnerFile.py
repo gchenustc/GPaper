@@ -1,1 +1,2 @@
-, parent=None
+        self.messageHorizontalLayout = QtWidgets.QHBoxLayout(
+            self.messageWidget)

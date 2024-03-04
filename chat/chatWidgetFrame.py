@@ -1,5 +1,5 @@
 from PySide6 import QtCore, QtWidgets
-from chat.plainTextEditRewite import MyPlainTextEdit
+from chat.widgetRewite import MyPlainTextEdit
 from PySide6.QtGui import QFont, QIcon
 from chat.slideCheckBox import SlideCheckBox
 from PySide6.QtCore import QSize, QRect
@@ -40,6 +40,7 @@ RIGHT_CBX_STYLE = """
                                 }
                             """
 
+
 class ChatWidgetFrame(QtWidgets.QWidget):
 
     # def __init__(self, parent=None):
@@ -51,14 +52,34 @@ class ChatWidgetFrame(QtWidgets.QWidget):
             structure:
                 mainHorizontalLayout
                     1. leftWidget (leftVerticalLayout)
-                            outputWidgetFrame (outputVerticalLayout)
-                                    leftScrollArea
-                                        scrollAreaWidgetContents (scrollAreaVerticalLayout) 
-                            inputHorizontalLayout
-                                userInput
-                                sendBtn
-                            btnHorizontalLayout
+                        outputWidgetFrame (outputVerticalLayout)
+                            leftScrollArea
+                                scrollAreaWidgetContents (scrollAreaVerticalLayout) 
+                        inputHorizontalLayout
+                            userInput
+                            sendBtn
+                        btnHorizontalLayout
+                            newChatBtn
+                            regenerateBtn
+                            stopOutputBtn
+                            lastChatBtn
+                            recycleTokensBtn
                     2. rightWidget
+                        rightfuncWidget (rightfuncVerticalLayout)
+                            platformHorizontalLayout
+                                platformLabel
+                                platformCbx
+                            modelHorizontalLayout
+                                modelLabel
+                                modelCbx
+                            memoryHorizontalLayout
+                                memoryLabel
+                                memoryInput
+                            assiciateDbHorizontalLayout
+                                assiciateDbLabel
+                                assiciateDbCheckBox
+                            separator
+
         """
 
         self.resize(1000, 800)
@@ -130,7 +151,8 @@ class ChatWidgetFrame(QtWidgets.QWidget):
         self.inputHorizontalLayout.addWidget(self.userInput)
 
         self.sendBtn = QtWidgets.QPushButton(self)
-        self.sendBtn.setStyleSheet("color: white; background-color: rgb(65, 105, 225); border-radius: 10px; font-weight: bold;")
+        self.sendBtn.setStyleSheet(
+            "color: white; background-color: rgb(65, 105, 225); border-radius: 10px; font-weight: bold;")
         self.sendBtn.setFixedHeight(40)
         sendFont = QFont()
         sendFont.setPointSize(12)
@@ -155,106 +177,110 @@ class ChatWidgetFrame(QtWidgets.QWidget):
 
         self.mainHorizontalLayout.setStretch(0, 6)
         self.mainHorizontalLayout.setStretch(1, 2)
-        
+
         self.btnHorizontalLayout = QtWidgets.QHBoxLayout()
         # self.btnHorizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.btnHorizontalLayout.setSpacing(35)
-        
+
         # * belong to left widget
         self.leftVerticalLayout.addLayout(self.btnHorizontalLayout)
-        
+
         self.newChatBtn = QtWidgets.QPushButton(self.leftWidget)
         self.newChatBtn.setFixedHeight(30)
-        self.newChatBtn.setStyleSheet("color: white; background-color: rgb(46, 139, 87); border-radius: 10px; font-weight: bold;")
+        self.newChatBtn.setStyleSheet(
+            "color: white; background-color: rgb(46, 139, 87); border-radius: 10px; font-weight: bold;")
         self.newChatBtn.setIcon(QIcon("./images/newChat.png"))
-        
+
         self.btnHorizontalLayout.addWidget(self.newChatBtn)
 
         self.regenerateBtn = QtWidgets.QPushButton(self.leftWidget)
         self.regenerateBtn.setFixedHeight(30)
-        self.regenerateBtn.setStyleSheet("color: white; background-color: rgb(65, 105, 225); border-radius: 10px; font-weight: bold;")
+        self.regenerateBtn.setStyleSheet(
+            "color: white; background-color: rgb(65, 105, 225); border-radius: 10px; font-weight: bold;")
         self.regenerateBtn.setIcon(QIcon("./images/recycle.png"))
-        
+
         self.btnHorizontalLayout.addWidget(self.regenerateBtn)
 
         self.stopOutputBtn = QtWidgets.QPushButton(self.leftWidget)
         self.stopOutputBtn.setFixedHeight(30)
-        self.stopOutputBtn.setStyleSheet("color: white; background-color: rgb(220, 80, 100); border-radius: 10px; font-weight: bold;")
+        self.stopOutputBtn.setStyleSheet(
+            "color: white; background-color: rgb(220, 80, 100); border-radius: 10px; font-weight: bold;")
         self.stopOutputBtn.setIcon(QIcon("./images/stop.png"))
         # self.stopOutputBtn.hide()
         self.btnHorizontalLayout.addWidget(self.stopOutputBtn)
 
         self.lastChatBtn = QtWidgets.QPushButton(self.leftWidget)
         self.lastChatBtn.setFixedHeight(30)
-        self.lastChatBtn.setStyleSheet("color: white; background-color: rgb(23, 180, 200); border-radius: 10px; font-weight: bold;")
+        self.lastChatBtn.setStyleSheet(
+            "color: white; background-color: rgb(23, 180, 200); border-radius: 10px; font-weight: bold;")
         self.lastChatBtn.setIcon(QIcon("./images/upperArrow.png"))
-        
+
         self.btnHorizontalLayout.addWidget(self.lastChatBtn)
 
         self.recycleTokensBtn = QtWidgets.QPushButton(self.leftWidget)
         self.recycleTokensBtn.setFixedHeight(30)
-        self.recycleTokensBtn.setStyleSheet("color: white; background-color: rgb(123, 104, 238); border-radius: 10px; font-weight: bold;")
+        self.recycleTokensBtn.setStyleSheet(
+            "color: white; background-color: rgb(123, 104, 238); border-radius: 10px; font-weight: bold;")
         self.recycleTokensBtn.setIcon(QIcon("./images/recycle1.png"))
-        
+
         self.btnHorizontalLayout.addWidget(self.recycleTokensBtn)
-        
-        
+
         # ! TODO right widget function
-        
         self.rightfuncWidget = QtWidgets.QWidget(self.rightWidget)
         self.rightfuncWidget.setFixedHeight(280)
-        
-        self.rightfuncVerticalLayout = QtWidgets.QVBoxLayout(self.rightfuncWidget)
+
+        self.rightfuncVerticalLayout = QtWidgets.QVBoxLayout(
+            self.rightfuncWidget)
         self.rightfuncVerticalLayout.setSpacing(15)
-        
+
         # platform
         self.platformHorizontalLayout = QtWidgets.QHBoxLayout()
         self.platformHorizontalLayout.setContentsMargins(5, 5, 5, 5)
         self.platformHorizontalLayout.setSpacing(15)
-        
+
         self.rightfuncVerticalLayout.addLayout(self.platformHorizontalLayout)
-        
+
         self.platformLabel = QtWidgets.QLabel(self.rightfuncWidget)
         self.platformLabel.setFont(QFont("", 12, QFont.Bold))
         self.platformHorizontalLayout.addWidget(self.platformLabel)
-        
+
         self.platformCbx = QtWidgets.QComboBox(self.rightfuncWidget)
-        
+
         self.platformCbx.setStyleSheet(RIGHT_CBX_STYLE)
-        
+
         self.platformCbx.addItem("demo")
-        
+
         self.platformHorizontalLayout.addWidget(self.platformCbx)
-        
+
         # model
         self.modelHorizontalLayout = QtWidgets.QHBoxLayout()
         self.modelHorizontalLayout.setContentsMargins(5, 5, 5, 5)
         self.modelHorizontalLayout.setSpacing(15)
-        
+
         self.rightfuncVerticalLayout.addLayout(self.modelHorizontalLayout)
-        
+
         self.modelLabel = QtWidgets.QLabel(self.rightfuncWidget)
         self.modelLabel.setFont(QFont("", 12, QFont.Bold))
         self.modelHorizontalLayout.addWidget(self.modelLabel)
-        
+
         self.modelCbx = QtWidgets.QComboBox(self.rightfuncWidget)
-        
+
         self.modelCbx.setStyleSheet(RIGHT_CBX_STYLE)
-        
+
         self.modelCbx.addItem("demo")
-        
+
         self.modelHorizontalLayout.addWidget(self.modelCbx)
-        
+
         # memory items
         self.memoryHorizontalLayout = QtWidgets.QHBoxLayout()
         self.memoryHorizontalLayout.setContentsMargins(5, 5, 5, 5)
         self.memoryHorizontalLayout.setSpacing(15)
         self.rightfuncVerticalLayout.addLayout(self.memoryHorizontalLayout)
-        
+
         self.memoryLabel = QtWidgets.QLabel(self.rightfuncWidget)
         self.memoryLabel.setFont(QFont("", 12, QFont.Bold))
         self.memoryHorizontalLayout.addWidget(self.memoryLabel)
-        
+
         self.memoryInput = QtWidgets.QLineEdit(self.rightfuncWidget)
         # self.memoryInput.setStyleSheet(RIGHT_INPUT_STYLE)
         self.memoryInput.setFixedWidth(80)
@@ -279,73 +305,76 @@ class ChatWidgetFrame(QtWidgets.QWidget):
                 outline: none; /* 去除默认的轮廓线 */
             }
         """)
-        
+
         # associate database checkbox
         self.assiciateDbHorizontalLayout = QtWidgets.QHBoxLayout()
         self.assiciateDbHorizontalLayout.setContentsMargins(5, 5, 5, 5)
         self.assiciateDbHorizontalLayout.setSpacing(15)
-        
-        self.rightfuncVerticalLayout.addLayout(self.assiciateDbHorizontalLayout)
-        
+
+        self.rightfuncVerticalLayout.addLayout(
+            self.assiciateDbHorizontalLayout)
+
         self.assiciateDbLabel = QtWidgets.QLabel(self.rightfuncWidget)
         self.assiciateDbLabel.setFont(QFont("", 12, QFont.Bold))
         self.assiciateDbHorizontalLayout.addWidget(self.assiciateDbLabel)
-        
+
         self.assiciateDbHorizontalLayout_1 = QtWidgets.QHBoxLayout()
         self.assiciateDbHorizontalLayout_1.setContentsMargins(90, 5, 5, 5)
         self.assiciateDbHorizontalLayout_1.setSpacing(15)
-        
-        self.rightfuncVerticalLayout.addLayout(self.assiciateDbHorizontalLayout_1)
-        
+
+        self.rightfuncVerticalLayout.addLayout(
+            self.assiciateDbHorizontalLayout_1)
+
         self.assiciateDbCheckBox = SlideCheckBox(self.rightfuncWidget)
         self.assiciateDbCheckBox.setFont(QFont("", 12, QFont.Bold))
-        self.assiciateDbCheckBox.setIconSize(QSize(55, 55)) 
+        self.assiciateDbCheckBox.setIconSize(QSize(55, 55))
         self.assiciateDbHorizontalLayout_1.addWidget(self.assiciateDbCheckBox)
-        
-        separator = QtWidgets.QFrame(self.rightfuncWidget)
-        separator.setFrameShape(QtWidgets.QFrame.HLine)  # 设置形状为水平线
-        separator.setFrameShadow(QtWidgets.QFrame.Sunken)  # 设置阴影效果，使其看起来像一个分隔符
-        separator.setStyleSheet("QFrame { background-color: black; }")
-        
 
-        self.rightfuncVerticalLayout.addWidget(separator)
+        self.separator = QtWidgets.QFrame(self.rightfuncWidget)
+        self.separator.setFrameShape(QtWidgets.QFrame.HLine)  # 设置形状为水平线
+        self.separator.setFrameShadow(
+            QtWidgets.QFrame.Sunken)  # 设置阴影效果，使其看起来像一个分隔符
+        self.separator.setStyleSheet("QFrame { background-color: black; }")
+
+        self.rightfuncVerticalLayout.addWidget(self.separator)
 
         # history
         self.histWidget = QtWidgets.QWidget(self.rightWidget)
+        self.histWidget.setGeometry(QRect(5, 275, 235, 490))
+        # self.histWidget.setStyleSheet("""
+        #                     background-color: rgb(220, 220, 220);
+        #                     border-radius:10px;
+        #                     border:3px solid #34495e;
+        #                 """)
+        self.histVerticalLayout = QtWidgets.QVBoxLayout(self.histWidget)
+        self.histVerticalLayout.setSpacing(20)
         
-        self.histWidget.setGeometry(QRect(0, 280, 247, 490))
-        
-        self.histTreeVerticalLayout = QtWidgets.QVBoxLayout(self.histWidget)
-        # self.rightfuncVerticalLayout.addLayout(self.histTreeVerticalLayout)
-        
-        self.histTreeWidget = QtWidgets.QTreeWidget()
-        self.histTreeWidget.setFont(QFont("", 10, QFont.Bold))
-        
-        self.histTreeWidget.setStyleSheet("""
-                                            QTreeWidget {
-                                                background-color: #eeeeee;
-                                                color: black;
-                                                padding: 5px;
-                                                border-radius: 15px;
-                                            }
+        self.histLabel = QtWidgets.QLabel("History Chats: ", self.histWidget)
+        self.histLabel.setFont(QFont("黑体", 14, QFont.Bold))
+        self.histVerticalLayout.addWidget(self.histLabel)
+
+        self.histContentWidget = QtWidgets.QWidget(self.histWidget)
+        self.histContentVerticalLayout = QtWidgets.QVBoxLayout(self.histContentWidget)
+        self.histContentVerticalLayout.setSpacing(20)
+
+        self.histScrollArea = QtWidgets.QScrollArea(self.histWidget)
+        self.histScrollArea.setStyleSheet("""
+                                            border:initial;
+                                            border: 0px solid;
                                         """)
+        self.histScrollArea.setWidgetResizable(True)
+        self.histScrollArea.setWidget(self.histContentWidget)
         
-        self.histTreeWidget.setHeaderHidden(True)  # hide head
+        self.histVerticalLayout.addWidget(self.histScrollArea)
 
-        top_item = QtWidgets.QTreeWidgetItem(self.histTreeWidget, ["History chat"])
-        self.histTreeWidget.addTopLevelItem(top_item)
-        top_item.setExpanded(True)
-
-        for i in range(20): 
-            child_item = QtWidgets.QTreeWidgetItem(top_item, ["son node {}".format(i)])
-            top_item.addChild(child_item)
-
-        child_item = QtWidgets.QTreeWidgetItem(top_item, ["long long long long son node".format(i)])
-        top_item.addChild(child_item)
-
-        self.histTreeWidget.setVerticalScrollMode(QtWidgets.QAbstractItemView.ScrollPerPixel)
-
-        self.histTreeVerticalLayout.addWidget(self.histTreeWidget)
+        # TODO demo
+        from chat.widgetRewite import MyLabel
+        for _ in range(200):
+            label = MyLabel("这是可滚动的内容之一一一一一一一一一一",
+                            self.histContentWidget)
+            label.setFixedWidth(180)
+            label.setWordWrap(True)
+            self.histContentVerticalLayout.addWidget(label)
 
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
@@ -357,12 +386,14 @@ class ChatWidgetFrame(QtWidgets.QWidget):
         self.newChatBtn.setText(_translate("MainWindow", "New chat"))
         self.regenerateBtn.setText(_translate("MainWindow", "Regenerate"))
         self.lastChatBtn.setText(_translate("MainWindow", "Last chat"))
-        self.recycleTokensBtn.setText(_translate("MainWindow", "Recycle tokens"))
+        self.recycleTokensBtn.setText(
+            _translate("MainWindow", "Recycle tokens"))
         self.stopOutputBtn.setText(_translate("MainWindow", "Stop output"))
         self.platformLabel.setText(_translate("MainWindow", "Platform:"))
         self.modelLabel.setText(_translate("MainWindow", "Model:"))
         self.memoryLabel.setText(_translate("MainWindow", "Memory items: "))
-        self.assiciateDbLabel.setText(_translate("MainWindow", "Accociate database: "))
+        self.assiciateDbLabel.setText(_translate(
+            "MainWindow", "Accociate database: "))
 
 
 if __name__ == "__main__":

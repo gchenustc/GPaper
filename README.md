@@ -34,3 +34,6 @@ Note that, This part hasn't started yet. But the future plan is following:
 20240303:
 1. Completed the chat interface framework
 ![chatWidgetDemo](./images/chatWidgetUpdate2.png "chatWidgetUpdate2")
+
+20240304:
+1. Update the history ex
