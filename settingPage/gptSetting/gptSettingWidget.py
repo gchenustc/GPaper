@@ -92,7 +92,6 @@ class GptSettingWidget(QWidget):
 
         self.promptBtn.setStyleSheet(buttonStyle)
 
-
         self.verticalLayout.addWidget(self.promptBtn)
 
         self.retranslateUi()

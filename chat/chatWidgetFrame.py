@@ -1,17 +1,17 @@
 from PySide6 import QtCore, QtWidgets
-from chat.widgetRewite import MyPlainTextEdit
+from chat.widgetRewite import MyPlainTextEdit, SlideCheckBox
 from PySide6.QtGui import QFont, QIcon
-from chat.slideCheckBox import SlideCheckBox
-from PySide6.QtCore import QSize, QRect
+from PySide6.QtCore import QSize, QRect, Qt
+
 
 RIGHT_CBX_STYLE = """
                                 QComboBox {
-
                                     background-color: #eeeeee; /* 灰色背景 */
                                     border: 1px solid #ccc; /* 边框为浅灰色，宽度为1px */
                                     border-radius: 3px; /* 边框圆角为3px */
                                     padding: 5px 10px; /* 内边距，使内容与边框之间有一定的间距 */
                                     min-width: 80px; /* 最小宽度，可根据实际需求调整 */
+                                    max-width: 130px;
                                     font-size: 14px; /* 字体大小 */
                                 }
                                 
@@ -82,6 +82,7 @@ class ChatWidgetFrame(QtWidgets.QWidget):
 
         """
 
+        # TODO
         self.resize(1000, 800)
 
         # set the background color
@@ -248,8 +249,6 @@ class ChatWidgetFrame(QtWidgets.QWidget):
 
         self.platformCbx.setStyleSheet(RIGHT_CBX_STYLE)
 
-        self.platformCbx.addItem("demo")
-
         self.platformHorizontalLayout.addWidget(self.platformCbx)
 
         # model
@@ -267,8 +266,6 @@ class ChatWidgetFrame(QtWidgets.QWidget):
 
         self.modelCbx.setStyleSheet(RIGHT_CBX_STYLE)
 
-        self.modelCbx.addItem("demo")
-
         self.modelHorizontalLayout.addWidget(self.modelCbx)
 
         # memory items
@@ -282,7 +279,7 @@ class ChatWidgetFrame(QtWidgets.QWidget):
         self.memoryHorizontalLayout.addWidget(self.memoryLabel)
 
         self.memoryInput = QtWidgets.QLineEdit(self.rightfuncWidget)
-        # self.memoryInput.setStyleSheet(RIGHT_INPUT_STYLE)
+        self.memoryInput.setAlignment(Qt.AlignCenter) 
         self.memoryInput.setFixedWidth(80)
         self.memoryHorizontalLayout.addWidget(self.memoryInput)
 

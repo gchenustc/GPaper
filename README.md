@@ -38,3 +38,6 @@ Note that, This part hasn't started yet. But the future plan is following:
 20240304:
 1. Update the history chats' code logic and interface exhibition
 ![chatWidgetDemo](./images/chatWidgetUpdate3.png "chatWidgetUpdate3")
+
+20240307
+1. Update the platform and model's dropdown list of chat page

@@ -1,6 +1,6 @@
-from PySide6.QtWidgets import QPlainTextEdit, QLabel, QMenu, QVBoxLayout, QWidget
-from PySide6.QtGui import QKeyEvent, QColor, QCursor, QPalette
-from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QPlainTextEdit, QLabel, QMenu, QVBoxLayout, QWidget, QCheckBox
+from PySide6.QtGui import QKeyEvent, QColor, QCursor, QPalette, QIcon
+from PySide6.QtCore import Qt, QSize
 
 class MyPlainTextEdit(QPlainTextEdit):
 
@@ -48,3 +48,31 @@ class MyLabel(QLabel):
         # action2.triggered.connect(another_function)
 
         menu.exec_(self.mapToGlobal(pos))  # 在鼠标点击的位置显示菜单
+
+
+class SlideCheckBox(QCheckBox):
+    def __init__(self, parent=None):
+        super(SlideCheckBox, self).__init__(parent)
+        
+        # raise caution: QPainter::begin: Paint device returned engine == 0, type: 3
+        self.setStyleSheet("""
+            QCheckBox::indicator {
+                width: 0;
+                height: 0;
+                margin: 0;
+            }
+        """)
+
+
+        # set the init icon
+        self.setIcon(QIcon("images/switch_off.png"))
+        self.setIconSize(QSize(36, 36)) 
+
+        # ! connect the the state change function
+        self.stateChanged.connect(self.on_stateChanged)
+
+    def on_stateChanged(self, state):
+        if state == 2:
+            self.setIcon(QIcon("images/switch_on.png"))
+        else:
+            self.setIcon(QIcon("images/switch_off.png"))

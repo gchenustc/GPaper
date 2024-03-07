@@ -6,13 +6,13 @@ import tiktoken
 from typing import Union, List, Generator
 
 class GptResponse(object):
-    def __init__(self, stream=True, prompt="请回答我的问题"):
+    def __init__(self, stream=True, prompt="please reply my question."):
         api = apiDao.getApifromSelected(selected=1)[0]
         apiId = api.id
 
-        self.platform = api.platform
-        self.key = api.key
-        self.host = api.host
+        self.platform = api.platform.strip().lower()
+        self.key = api.key.strip()
+        self.host = api.host.strip()
 
         self.model = modelDao.getModelFromApiIdAndSelected(apiId=apiId, selected=1)[0].name
         
@@ -29,8 +29,8 @@ class GptResponse(object):
     def getResponse(self, input: str) -> Union[List[str], Generator[str, None, None]]:
         
         self.messages.append({'role': 'user', 'content': input})
-        
-        if self.platform.strip().lower() == "qianwen":
+
+        if self.platform == "qianwen":
             try:
                 self.response = dashscope.Generation.call(
                     model=self.model,
@@ -44,12 +44,9 @@ class GptResponse(object):
                 self.messages.pop()
                 return [e]
 
-            if self.stream:
-                return self.qwenTextReplyGenerator()
+            return self.qwenTextReplyGenerator() if self.stream else self.qwenTextReply()
             
-            return self.qwenTextReply()
-
-        elif self.platform.strip().lower() == "openai":
+        elif self.platform == "openai":
             try:
                 self.response = OpenAI(api_key=self.key, base_url=self.host).chat.completions.create(
                     model=self.model,
@@ -59,54 +56,54 @@ class GptResponse(object):
             except Exception as e:
                 self.messages.pop()
                 return [e]
-            
+
             if self.stream:
                 return self.openaiTextReplyGenerator()
-            
+
             return self.openaiTextReply()
 
         
     def qwenTextReplyGenerator(self):
         headIdx = 0
         for qwStreamResponse in self.response:
-            if not qwStreamResponse.status_code == HTTPStatus.OK:
+            if qwStreamResponse.status_code != HTTPStatus.OK:
                 self.messages.pop()
                 yield f"Request id: {qwStreamResponse.request_id}, Status code: {qwStreamResponse.status_code}, error code: {qwStreamResponse.code}, error message: {qwStreamResponse.message}"
                 return
-            
+
             paragraph = qwStreamResponse.output.choices[0].message.content
-            streamOut = f"{paragraph[headIdx:len(paragraph)]}"
+            streamOut = f"{paragraph[headIdx:]}"
             headIdx = len(paragraph)
 
             self.inputTokens += qwStreamResponse.usage.input_tokens
             self.outputTokens += qwStreamResponse.usage.output_tokens
             self.totalTokens += (self.inputTokens + self.outputTokens)
-            
+
             yield streamOut
 
         self.messages.append({'role': qwStreamResponse.output.choices[0].message.role, 'content': paragraph})
 
     def qwenTextReply(self):
-        if not self.response.status_code == HTTPStatus.OK:
+        if self.response.status_code != HTTPStatus.OK:
             self.messages.pop()
             return f"Request id: {self.response.request_id}, Status code: {self.response.status_code}, error code: {self.response.code}, error message: {self.response.message}"
-        
+
         self.inputTokens += self.response.usage.input_tokens
         self.outputTokens += self.response.usage.output_tokens
         self.totalTokens += (self.inputTokens + self.outputTokens)
-        
+
         out = self.response.output.choices[0].message.content
-        
+
         self.messages.append({'role': self.response.output.choices[0].message.role, 'content': out})
-        
+
         return [out]
 
     def openaiTextReplyGenerator(self):
-        if not self.response.response.status_code == 200:
+        if self.response.response.status_code != 200:
             self.messages.pop()
             yield f"{self.response.response.raise_for_status()}"
             return
-        
+
         out = ""
         for streamResponse in self.response:
             resText = streamResponse.choices[0].delta.content or ""
