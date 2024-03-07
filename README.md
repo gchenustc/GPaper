@@ -41,3 +41,4 @@ Note that, This part hasn't started yet. But the future plan is following:
 
 20240307
 1. Update the platform and model's dropdown list of chat page
+2. Fix the bug for chat box could not roll when the chat history is too long

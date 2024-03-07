@@ -123,8 +123,10 @@ class ChatWidgetFrame(QtWidgets.QWidget):
                                         """)
         self.leftScrollArea.setWidgetResizable(True)
 
-        self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 958, 598))
+        self.outputVerticalLayout.addWidget(self.leftScrollArea)
+
+        self.scrollAreaWidgetContents = QtWidgets.QWidget(self.outputWidgetFrame)
+        # self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 958, 598))
 
         self.scrollAreaVerticalLayout = QtWidgets.QVBoxLayout(
             self.scrollAreaWidgetContents)

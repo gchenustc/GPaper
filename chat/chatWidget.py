@@ -85,7 +85,7 @@ class ChatWidget(ChatWidgetFrame):
         if self.sum != 0:
             if textWidth > 832:  # 宽度上限
                 textWidth = int(
-                    self.textBrowser.document().size().width())+83  # 固定宽度
+                    self.textBrowser.document().size().width())+68  # 固定宽度
             self.messageWidget.setMinimumSize(textWidth, int(
                 self.textBrowser.document().size().height()) + 25)  # 规定气泡大小
             self.messageWidget.setMaximumSize(textWidth, int(
@@ -131,7 +131,7 @@ class ChatWidget(ChatWidgetFrame):
 
         self.textBrowser.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.messageHorizontalLayout.addWidget(self.textBrowser)
-        self.outputVerticalLayout.addWidget(self.messageWidget)
+        self.scrollAreaVerticalLayout.addWidget(self.messageWidget)
 
     def initPlatformCbx(self):
         apis = apiDao.getAllApis()
